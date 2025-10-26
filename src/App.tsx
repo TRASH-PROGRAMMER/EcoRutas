@@ -13,6 +13,9 @@ import Guias from "./pages/Guias";
 import Comunidades from "./pages/Comunidades";
 import Nosotros from "./pages/Nosotros";
 import Reservar from "./pages/Reservar";
+import "./i18n"; // importa antes de renderizar la app
+import { useTranslation } from "react-i18next";
+
 
 const queryClient = new QueryClient();
 

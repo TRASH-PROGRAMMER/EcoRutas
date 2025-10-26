@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { 
   Leaf, 
   Map, 
@@ -23,21 +24,22 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 
-const navigationItems = [
-  { title: "Inicio", url: "/", icon: Home },
-  { title: "Rutas", url: "/rutas", icon: Map },
-  { title: "Guías Locales", url: "/guias", icon: Users },
-  { title: "Comunidades", url: "/comunidades", icon: Building2 },
-  { title: "Nosotros", url: "/nosotros", icon: Info },
-];
-
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
   const isCollapsed = state === "collapsed";
+  const { t } = useTranslation(); // <-- Importante
 
   const isActive = (path: string) => currentPath === path;
+
+  const navigationItems = [
+    { title: t("Inicio"), url: "/", icon: Home },
+    { title: t("Rutas"), url: "/rutas", icon: Map },
+    { title: t("Guías Locales"), url: "/guias", icon: Users },
+    { title: t("Comunidades"), url: "/comunidades", icon: Building2 },
+    { title: t("Nosotros"), url: "/nosotros", icon: Info },
+  ];
 
   return (
     <Sidebar collapsible="icon">
@@ -54,7 +56,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navegación Principal</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("Navegación Principal")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => {
@@ -84,7 +86,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Acciones</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("Acciones")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -94,7 +96,7 @@ export function AppSidebar() {
                     className="flex items-center gap-3 text-primary-foreground bg-primary hover:bg-primary/90 font-medium"
                   >
                     <Calendar className="h-5 w-5" aria-hidden="true" />
-                    <span>Reservar Ahora</span>
+                    <span>{t("Reservar Ahora")}</span>
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -106,12 +108,8 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-border/50 p-4">
         {!isCollapsed && (
           <div className="space-y-2">
-            <p className="text-xs text-muted-foreground">
-              Turismo Sostenible
-            </p>
-            <p className="text-xs font-medium text-foreground">
-              © 2025 EcoRutas
-            </p>
+            <p className="text-xs text-muted-foreground">{t("Turismo Sostenible")}</p>
+            <p className="text-xs font-medium text-foreground">© 2025 EcoRutas</p>
           </div>
         )}
       </SidebarFooter>
