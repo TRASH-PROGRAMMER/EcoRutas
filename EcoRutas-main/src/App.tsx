@@ -31,6 +31,9 @@ import GestionGuias from "@/components/localidad/GestionGuias";
 import HistorialCambios from "@/components/localidad/HistorialCambios";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AccessibilityProvider } from "./context/AccessibilityContext";
+import AccessibilityMenu from "./components/AccessibilityMenu";
+import KeyboardShortcutIndicator from "./components/KeyboardShortcutIndicator";
 import "./i18n";
 
 const queryClient = new QueryClient();
@@ -177,11 +180,15 @@ const App: React.FC = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </AuthProvider>
+      <AccessibilityProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppContent />
+            <AccessibilityMenu />
+            <KeyboardShortcutIndicator />
+          </BrowserRouter>
+        </AuthProvider>
+      </AccessibilityProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
